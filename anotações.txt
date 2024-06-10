@@ -1,0 +1,14 @@
+Primeiramente: na função main insere-se a rota para a conexão com o servidor (presente na func main). Além disso, é importante criar uma pasta chamada initializers, que contém
+variaveis que precisam ser iniciadas, como dotenv e outros tipos de elementos (FUNÇÕES QUE PRECISAM SER UTILIZADAS EM OUTROS FILES SEMPRE PRECISAM COMEÇAR COM LETRA MAIÚSCULA).
+Em main.go, na função init, chame "LoadVariables".
+Para conexão com banco de dados, crie um arquivo dbConnect para armazenar a função de conexão (dentro de initializers). Inserir na função init em main.go.
+Armazenar string de conexão dentro de .env.
+Assim como em node.js, crie uma pasta chamada "models" para armazenar os modelos utilizados no banco de dados.
+Para utilizar modelo no banco de dados, crie uma pasta "migrate" para migrar os dados para o banco de dados. Vai ser package main pois Quando você está criando um script de migração para um banco de dados, geralmente quer que esse script seja executável de forma independente. Por exemplo, você pode querer rodar esse script para criar ou atualizar a estrutura do banco de dados (schemas, tabelas, índices, etc.). Para que isso seja possível, o script de migração precisa ser um programa Go completo, com um ponto de entrada principal.
+Em migrate.go, criar init() para inicializar o banco de dados e enviroment variables.
+Depois deste setup, podemos começar a criar as operações crud. Crie uma pasta chamada controllers. Nela desenvolver as operações e chamá-las dentro da função main em main.go,
+utilizando o esquema re r.GET, r.POST, etc.
+
+
+Em controllers, para a função de POST, é preciso criar um struct que vá armazenar os dados que serão inseridos. Para criação, utilizar Bind(), que permitirá
+o acesso das propriedades através do body
