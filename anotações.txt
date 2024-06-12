@@ -11,4 +11,10 @@ utilizando o esquema re r.GET, r.POST, etc.
 
 
 Em controllers, para a função de POST, é preciso criar um struct que vá armazenar os dados que serão inseridos. Para criação, utilizar Bind(), que permitirá
-o acesso das propriedades através do body
+o acesso das propriedades através do body.
+
+
+Para associar diferentes modelos com SQL em golang, utilizar refers para os modelos, assim como o modelo de verdade que irá referenciar o id
+EXEMPLO: BankRefer int  `json:"bank_id"`
+	     Bank      Bank `gorm:"foreignKey:BankRefer;references:ID"`
+Isso estará fazendo o seguinte: Bank será referenciado pelo BankRefer, que procurará dentro de Bank o Bank que possui a primarykey ID

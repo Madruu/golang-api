@@ -15,6 +15,7 @@ func main() {
 	r := gin.Default()
 
 	r.POST("/clients", controllers.CreateClient)
+	r.POST("/bank", controllers.CreateBank)
 
 	r.Run() //Simple example on how to run a server using gin
 }

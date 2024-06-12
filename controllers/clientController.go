@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/Madruu/golangDatabase/initializers"
 	"github.com/Madruu/golangDatabase/models"
@@ -15,14 +16,22 @@ func CreateClient(c *gin.Context) {
 		Name     string
 		Email    *string
 		Password string
-		Bank     string
-		Age      uint8
+		Bank     models.Bank `json:"bank"`
+		//Bank  string
+		Age uint8
+		//Games string
+		Games models.Game
 	}
 
-	c.Bind(&body)
+	//c.Bind(&body)
+
+	if err := c.ShouldBind(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	client := models.Client{Name: body.Name, Email: body.Email,
-		Password: body.Password, Bank: body.Bank, Age: body.Age}
+		Password: body.Password, Bank: body.Bank, Age: body.Age, Games: body.Games}
 
 	//Hashing password
 	hashedPassword, err := services.HashPasswordFromClient(client.Password)
@@ -40,6 +49,8 @@ func CreateClient(c *gin.Context) {
 		c.Status(400)
 		return
 	}
+
+	initializers.DB.Preload("Bank").Preload("Games").Find(&client) //Preloading foreign keys
 
 	c.JSON(200, gin.H{
 		"client": client,
