@@ -16,6 +16,8 @@ func main() {
 
 	r.POST("/clients", controllers.CreateClient)
 	r.POST("/bank", controllers.CreateBank)
+	r.DELETE("/clients/:id", controllers.DeleteClient)
+	r.GET("/clients", controllers.GetClients)
 
 	r.Run() //Simple example on how to run a server using gin
 }

@@ -18,3 +18,8 @@ Para associar diferentes modelos com SQL em golang, utilizar refers para os mode
 EXEMPLO: BankRefer int  `json:"bank_id"`
 	     Bank      Bank `gorm:"foreignKey:BankRefer;references:ID"`
 Isso estará fazendo o seguinte: Bank será referenciado pelo BankRefer, que procurará dentro de Bank o Bank que possui a primarykey ID
+
+Pré-carregar associações: Usei Preload para carregar os dados das associações Bank e Games após criar o cliente e antes de retornar a resposta JSON.
+Preload: A função Preload carrega as associações especificadas (Bank e Games) para o cliente recém-criado. Isso garante que os dados relacionados sejam 
+carregados corretamente e incluídos na resposta JSON.
+Explicação código: https://chatgpt.com/share/26da0cba-6095-4b16-95ad-a2e0d2ebab24

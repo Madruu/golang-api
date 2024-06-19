@@ -56,3 +56,35 @@ func CreateClient(c *gin.Context) {
 		"client": client,
 	})
 }
+
+func GetClients(c *gin.Context) {
+	var clients []models.Client
+
+	result := initializers.DB.Find(&clients)
+
+	if result.Error != nil {
+		c.Status(400)
+		return
+	}
+
+	initializers.DB.Preload("Bank").Preload("Games").Find(&clients)
+
+	c.JSON(200, gin.H{
+		"client": clients,
+	})
+}
+
+func DeleteClient(c *gin.Context) {
+
+	//Getting id
+	id := c.Param("id")
+
+	//Delete the post from the id
+	initializers.DB.Delete(&models.Client{}, id) //delete from the id
+
+	//Respond
+	c.JSON(200, gin.H{
+		"message": "Client deleted",
+	})
+
+}
