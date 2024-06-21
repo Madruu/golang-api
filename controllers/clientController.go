@@ -74,6 +74,21 @@ func GetClients(c *gin.Context) {
 	})
 }
 
+func GetClientById(c *gin.Context) {
+	//Getting id
+	id := c.Param("id")
+
+	var client models.Client
+
+	initializers.DB.First(&client, id)
+
+	initializers.DB.Preload("Bank").Preload("Games").Find(&client)
+
+	c.JSON(200, gin.H{
+		"client": client,
+	})
+}
+
 func DeleteClient(c *gin.Context) {
 
 	//Getting id
