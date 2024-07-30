@@ -1,9 +1,8 @@
 package models
 
-import "gorm.io/gorm"
-
 type Game struct {
-	gorm.Model
+	//gorm.Model
+	ID          uint `json:"id" gorm:"primaryKey"`
 	Name        string
 	Price       float64
 	Platform    string
