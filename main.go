@@ -22,6 +22,12 @@ func main() {
 	r.DELETE("/games/:id", controllers.DeleteGame)
 
 	//Bank routes
+	r.POST("/bank", controllers.CreateBank)
+	r.GET("/banks", controllers.GetBanks)
+	r.GET("/banks/:id", controllers.GetBankById)
+
+	//Client routes
+	r.POST("/client", controllers.RegisterClient)
 
 	r.Run() //Simple example on how to run a server using gin
 }
