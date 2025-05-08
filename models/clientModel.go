@@ -1,9 +1,8 @@
 package models
 
-import "gorm.io/gorm"
-
 type Client struct {
-	gorm.Model
+	//gorm.Model
+	ID        uint `json:"id" gorm:"primaryKey"`
 	Name      string
 	Email     *string
 	Password  string
