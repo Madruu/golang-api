@@ -7,6 +7,7 @@ import (
 	"github.com/Madruu/golangDatabase/initializers"
 	"github.com/Madruu/golangDatabase/models"
 	"github.com/Madruu/golangDatabase/services"
+	"github.com/Madruu/golangDatabase/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -64,4 +65,28 @@ func RegisterClient(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"client": responseClient,
 	})
+}
+
+func AuthClient(c *gin.Context) {
+	var client  models.Client;
+
+
+	if err := c.ShouldBindJSON(&client); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Data"});
+		return;
+	}
+
+	if client.Name == "client" && client.Password == "Password" {
+		//Generates JWT token
+		token, err := utils.GenerateToken(client.ID);
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"});
+			return;
+		}
+
+		c.JSON(http.StatusOK , gin.H{"token": token})
+	} else {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"});
+	}
 }

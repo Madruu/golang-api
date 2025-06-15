@@ -28,6 +28,7 @@ func main() {
 
 	//Client routes
 	r.POST("/client", controllers.RegisterClient)
+	r.POST("/login", controllers.AuthClient)
 
 	r.Run() //Simple example on how to run a server using gin
 }

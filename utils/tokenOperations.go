@@ -6,7 +6,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 )
-
+//Testing
 var secretKey = []byte("secretPassword")
 
 // Generating a token from the userId as part of the claims
@@ -25,7 +25,7 @@ func ValidateToken(tokenString string) (jwt.MapClaims, error) {
 	//Parsing token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//Checking sign method
-		if _, ok := token.Method.(*jwt.SigningMethodHS256); !ok {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Invalid signing method")
 		}
 		return secretKey, nil
