@@ -9,7 +9,7 @@ import (
 	"github.com/Madruu/golangDatabase/models"
 	"github.com/gin-gonic/gin"
 )
-
+//Testing if thjis is getting saved 
 // Bank serializer
 type Bank struct {
 	ID      uint    `json:"id"`
